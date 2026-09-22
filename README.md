@@ -2,33 +2,6 @@
 
 A [Model Context Protocol](https://modelcontextprotocol.io/) server written in TypeScript for Chess.com's public API. It exposes the complete documented Chess.com PubAPI through 30 tools and seven resources without authentication.
 
-## Run with Docker
-
-Build the image:
-
-```bash
-docker build -t chess-mcp .
-```
-
-The default container transport is stdio, which works with Claude Desktop and other local MCP clients:
-
-```json
-{
-  "mcpServers": {
-    "chess": {
-      "command": "docker",
-      "args": ["run", "--rm", "-i", "chess-mcp"]
-    }
-  }
-}
-```
-
-To run the optional SSE transport instead:
-
-```bash
-docker run --rm -p 8000:8000 -e MCP_TRANSPORT=sse chess-mcp
-```
-
 ## Run locally
 
 Requirements: Node.js 20.9 or newer.
@@ -46,7 +19,7 @@ For a Claude Desktop configuration, point the command at the compiled entry poin
   "mcpServers": {
     "chess": {
       "command": "node",
-      "args": ["C:/path/to/chess-mcp/dist/main.js"]
+      "args": ["C:/path/to/chess-mcp-node/dist/main.js"]
     }
   }
 }
