@@ -2,59 +2,72 @@
 
 A [Model Context Protocol](https://modelcontextprotocol.io/) server written in TypeScript for Chess.com's public API. It exposes the complete documented Chess.com PubAPI through 30 tools and seven resources without authentication.
 
-## Run locally
+## Install from npm
 
 Requirements: Node.js 20.9 or newer.
 
-```bash
-npm install
-npm run build
-npm start
-```
-
-For a Claude Desktop configuration, point the command at the compiled entry point:
-
-```json
-{
-  "mcpServers": {
-    "chess": {
-      "command": "node",
-      "args": ["C:/path/to/chess-mcp-node/dist/main.js"]
-    }
-  }
-}
-```
-
-The SSE server listens on port `8000` by default and provides `/sse`, `/messages`, and `/health`. Configure it with `MCP_TRANSPORT=sse`, `PORT`, and `HOST`.
-
-Set `CHESS_API_BASE_URL` to override the Chess.com API base URL for development or testing.
-
-## Run with npx
-
-After the package is published to npm, run the server without cloning the repository:
+Run the latest published package directly:
 
 ```bash
-npx -y chess-mcp-node@0.1.0
+npx -y chess-mcp-node@latest
 ```
 
-For a VS Code MCP configuration in `.vscode/mcp.json`:
+The default transport is stdio. The package is distributed through npm and can also be installed from the VS Code MCP gallery after its registry metadata is published.
+
+For VS Code, create or open `.vscode/mcp.json` in your workspace:
 
 ```json
 {
   "servers": {
     "chess": {
       "command": "npx",
-      "args": ["-y", "chess-mcp-node@0.1.0"]
+      "args": ["-y", "chess-mcp-node@latest"]
     }
   }
 }
 ```
 
-To run a tagged GitHub checkout directly instead of the npm registry:
+After publication, search for `@mcp chess` in VS Code and select **Install** to add the server from the MCP gallery.
+
+For Claude Desktop, add the server to its MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "chess": {
+      "command": "npx",
+      "args": ["-y", "chess-mcp-node@latest"]
+    }
+  }
+}
+```
+
+## Run from source
+
+Requirements: Node.js 20.9 or newer.
 
 ```bash
-npx -y github:udarrr/chess-mcp-node#v0.1.0
+npm ci
+npm run build
+npm start
 ```
+
+The default source-run transport is stdio. To run the optional SSE transport:
+
+```bash
+# macOS/Linux
+MCP_TRANSPORT=sse npm start
+```
+
+```powershell
+# Windows PowerShell
+$env:MCP_TRANSPORT = "sse"
+npm start
+```
+
+The SSE server listens on port `8000` by default and provides `/sse`, `/messages`, and `/health`. Set `PORT` and `HOST` to override those defaults.
+
+Set `CHESS_API_BASE_URL` to override the Chess.com API base URL for development or testing.
 
 ## Development
 

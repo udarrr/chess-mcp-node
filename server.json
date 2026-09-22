@@ -1,0 +1,23 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.udarrr/chess-mcp-node",
+  "title": "Chess.com MCP Server",
+  "description": "MCP server for Chess.com player profiles, games, stats, puzzles, clubs, and tournaments",
+  "repository": {
+    "url": "https://github.com/udarrr/chess-mcp-node",
+    "source": "github"
+  },
+  "version": "0.8.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "chess-mcp-node",
+      "version": "0.8.0",
+      "runtimeHint": "npx",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

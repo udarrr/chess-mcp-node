@@ -2,6 +2,7 @@
   "name": "chess-mcp-node",
   "version": "0.8.0",
   "description": "MCP server for Chess.com API integration",
+  "mcpName": "io.github.udarrr/chess-mcp-node",
   "type": "module",
   "engines": {
     "node": ">=20.9.0"
