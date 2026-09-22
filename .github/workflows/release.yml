@@ -24,6 +24,15 @@ jobs:
           node-version: '20.9.0'
           registry-url: https://registry.npmjs.org
 
+      - name: Validate release version
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if [ "$VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "::error::Git tag v$VERSION does not match package.json version $PACKAGE_VERSION"
+            exit 1
+          fi
+
       - name: Install dependencies
         run: npm ci
 
@@ -34,7 +43,12 @@ jobs:
           npm pack
 
       - name: Publish to npm
-        run: npm publish --access public
+        run: |
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::error::NPM_TOKEN is not configured in GitHub repository secrets"
+            exit 1
+          fi
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -52,7 +66,7 @@ jobs:
 
       - name: Update server.json version
         run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
+          VERSION=${GITHUB_REF_NAME#v}
           # Update server and npm package versions
           jq --arg v "$VERSION" '
             .version = $v

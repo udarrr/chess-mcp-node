@@ -7,13 +7,13 @@
     "url": "https://github.com/udarrr/chess-mcp-node",
     "source": "github"
   },
-  "version": "0.1.0",
+  "version": "0.8.0",
   "packages": [
     {
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "chess-mcp-node",
-      "version": "0.1.0",
+      "version": "0.8.0",
       "runtimeHint": "npx",
       "transport": {
         "type": "stdio"
