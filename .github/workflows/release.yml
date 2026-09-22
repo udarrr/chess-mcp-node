@@ -43,7 +43,7 @@ jobs:
         with:
           generate_release_notes: true
           files: |
-            chess-mcp-*.tgz
+            chess-mcp-node-*.tgz
 
       - name: Install MCP Publisher
         run: |
@@ -53,13 +53,10 @@ jobs:
       - name: Update server.json version
         run: |
           VERSION=${GITHUB_REF#refs/tags/v}
-          # Update version in server.json
-          jq --arg v "$VERSION" '.version = $v' server.json > tmp && mv tmp server.json
-          # Update package versions and OCI image identifier
-          jq --arg v "$VERSION" --arg img "ghcr.io/udarrr/chess-mcp-node:$VERSION" '
+          # Update server and npm package versions
+          jq --arg v "$VERSION" '
             .version = $v
             | (.packages[] | select(.registryType == "npm") | .version) = $v
-            | (.packages[] | select(.registryType == "oci") | .identifier) = $img
           ' server.json > tmp && mv tmp server.json
 
       - name: Login to MCP Registry

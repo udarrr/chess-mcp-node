@@ -39,10 +39,9 @@ jobs:
       - name: Update server.json
         run: |
           VERSION="${{ steps.get_version.outputs.version }}"
-          jq --arg version "$VERSION" --arg image "ghcr.io/udarrr/chess-mcp-node:$VERSION" '
+          jq --arg version "$VERSION" '
             .version = $version
             | (.packages[] | select(.registryType == "npm") | .version) = $version
-            | (.packages[] | select(.registryType == "oci") | .identifier) = $image
           ' server.json > server.json.tmp
           mv server.json.tmp server.json
           echo "Updated server.json with version $VERSION"
