@@ -1,0 +1,36 @@
+{
+  "name": "chess-mcp-node",
+  "version": "0.1.0",
+  "description": "MCP server for Chess.com API integration",
+  "mcpName": "io.github.udarrr/chess-mcp-node",
+  "type": "module",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "prepare": "npm run build",
+    "start": "node dist/main.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage --coverage.reporter=lcov --coverage.reporter=text",
+    "typecheck": "tsc --project tsconfig.json --noEmit"
+  },
+  "bin": {
+    "chess-mcp-node": "dist/main.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "dotenv": "^16.4.7",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "@vitest/coverage-v8": "^3.0.8",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.8"
+  }
+}

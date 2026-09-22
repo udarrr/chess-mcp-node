@@ -1,0 +1,15 @@
+# Node.js
+node_modules/
+dist/
+*.tsbuildinfo
+coverage/
+
+.env
+
+.idea/
+.vscode/
+*.swp
+*.swo
+.coverage
+coverage.xml
+.DS_Store
